@@ -70,24 +70,44 @@ impl From<&str> for Command {
 }
 
 fn main() {
-    let commands = fs::read_to_string("data/day_02.txt").expect("File missing");
-    let commands: Vec<Command> = commands.split('\n').map(|s| s.into()).collect();
-    println!("{}", part1(&commands));
-    println!("{}", part2(&commands));
+    println!("{}", part1());
+    println!("{}", part2());
 }
 
-fn part1(commands: &[Command]) -> u32 {
+fn read_input() -> Vec<Command> {
+    let commands = fs::read_to_string("data/day_02.txt").expect("File missing");
+    commands.split('\n').map(|s| s.into()).collect()
+}
+
+fn part1() -> u32 {
+    let commands = read_input();
     let mut sub = Submarine1::new();
     for command in commands {
-        sub.execute(command);
+        sub.execute(&command);
     }
     sub.horizontal * sub.depth
 }
 
-fn part2(commands: &[Command]) -> u32 {
+fn part2() -> u32 {
+    let commands = read_input();
     let mut sub = Submarine2::new();
     for command in commands {
-        sub.execute(command);
+        sub.execute(&command);
     }
     sub.horizontal * sub.depth
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_part_1() {
+        assert_eq!(part1(), 1_938_402);
+    }
+
+    #[test]
+    fn test_part_2() {
+        assert_eq!(part2(), 1_947_878_632);
+    }
 }
