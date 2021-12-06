@@ -15,9 +15,9 @@ enum Marking {
 
 impl Marking {
     fn is_marked(&self) -> bool {
-        match self {
-            &Marking::Marked => true,
-            &Marking::Unmarked => false,
+        match *self {
+            Marking::Marked => true,
+            Marking::Unmarked => false,
         }
     }
 }
