@@ -135,7 +135,7 @@ fn part2() -> u32 {
     let (numbers, mut boards) = read_input();
     for number in numbers {
         if boards.len() == 1 {
-            let mut board = boards.first_mut().unwrap();
+            let board = boards.first_mut().unwrap();
             board.mark(number);
             if board.is_winner() {
                 return board.sum_of_unmarked() * number;
